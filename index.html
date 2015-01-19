@@ -6,10 +6,17 @@
     <meta name="description" content=" FILL ME IN ">
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
-
-    <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
     <style>
+            @media print {
+          * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; }
+          a, a:visited { color: #444 !important; text-decoration: underline; }
+          a[href]:after { content: " (" attr(href) ")"; }
+          tr, img { page-break-inside: avoid; }
+          img { max-width: 100% !important; }
+          @page { margin: 0.5cm; }
+          p, h2, h3 { orphans: 3; widows: 3; }
+          h2, h3{ page-break-after: avoid; }
+        }
           html {
         font-size: 100%;
         overflow-y: scroll;
@@ -60,7 +67,6 @@
         header p { padding-left: 4.5em;}
       }
     </style>
-    <link href="css/print.css" rel="stylesheet">
 
     <script>
       (function(w,g){w['GoogleAnalyticsObject']=g;
@@ -70,7 +76,7 @@
       ga('create', 'UA-XXXX-Y');
       ga('send', 'pageview');
     </script>
-    <script src="http://www.google-analytics.com/analytics.js"></script>
+    <script async src="http://www.google-analytics.com/analytics.js"></script>
     <script async src="js/perfmatters.js"></script>
   </head>
 
