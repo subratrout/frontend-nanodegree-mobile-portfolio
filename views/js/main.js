@@ -142,12 +142,13 @@ pizzaIngredients.crusts = [
   "Stuffed Crust"
 ];
 
-
+// Name generator pulled from http://saturdaykid.com/usernames/generator.html
+// Capitalizes first letter of each word
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-
+// Pulls adjective out of array using random number sent from generator
 function getAdj(x){
   switch(x) {
     case "dark":
@@ -211,7 +212,7 @@ function getAdj(x){
   };
 };
 
-
+// Pulls noun out of array using random number sent from generator
 function getNoun(y) {
   switch(y) {
     case "animals":
@@ -284,7 +285,7 @@ function getNoun(y) {
 var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];
 var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];
 
-
+// Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
   var adjectives = getAdj(adj);
   var nouns = getNoun(noun);
@@ -294,7 +295,7 @@ function generator(adj, noun) {
   return name;
 };
 
-
+// Chooses random adjective and random noun
 function randomName() {
   var randomNumberAdj = parseInt(Math.random() * adjectives.length);
   var randomNumberNoun = parseInt(Math.random() * nouns.length);
@@ -331,7 +332,7 @@ var ingredientItemizer = function(string) {
   return "<li>" + string + "</li>";
 }
 
-
+// Returns a string with random pizza ingredients nested inside <li> tags
 var makeRandomPizza = function() {
   var pizza = "";
 
@@ -357,7 +358,7 @@ var makeRandomPizza = function() {
   return pizza;
 }
 
-
+// returns a DOM element for each pizza
 var pizzaElementGenerator = function(i) {
   var pizzaContainer,
       pizzaImageContainer,
@@ -397,7 +398,7 @@ var pizzaElementGenerator = function(i) {
   return pizzaContainer;
 }
 
-
+// resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
@@ -419,13 +420,15 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
-
+// Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
 
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
+    // TODO: change to 3 sizes? no more xl?
+    // Changes the slider value to a percent width
     function sizeSwitcher (size) {
       switch(size) {
         case "1":
@@ -445,7 +448,7 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-
+// Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
       var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
@@ -495,12 +498,13 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// Sliding background pizza scroll limited to 30
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
+  for (var i = 0; i < 30; i++) {
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
@@ -519,10 +523,11 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
+//Reduced no of sliding pizza for page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 60; i++) {
+  for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
