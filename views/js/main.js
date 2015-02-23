@@ -1,16 +1,12 @@
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
-
 There are two major issues in this code that lead to sub-60fps performance. Can
 you spot and fix both?
-
-
 Built into the code, you'll find a few instances of the User Timing API
 (window.performance), which will be console.log()ing frame rate data into the
 browser console. To learn more about User Timing API, check out:
 http://www.html5rocks.com/en/tutorials/webperformance/usertiming/
-
 Creator:
 Cameron Pittman, Udacity Course Developer
 cameron *at* udacity *dot* com
@@ -202,15 +198,15 @@ function getAdj(x){
     case "scientific":
       var scientific = ["scientific", "technical", "digital", "programming", "calculating", "formulating", "cyberpunk", "mechanical", "technological",
       "innovative", "brainy", "chemical", "quantum", "astro", "space", "theoretical", "atomic", "electronic", "gaseous", "investigative", "solar",
-      "extinct", "galactic"]
+      "extinct", "galactic"];
       return scientific;
     default:
-      var scientific = ["scientific", "technical", "digital", "programming", "calculating", "formulating", "cyberpunk", "mechanical", "technological",
+      var scientific_default = ["scientific", "technical", "digital", "programming", "calculating", "formulating", "cyberpunk", "mechanical", "technological",
       "innovative", "brainy", "chemical", "quantum", "astro", "space", "theoretical", "atomic", "electronic", "gaseous", "investigative", "solar",
-      "extinct", "galactic"]
-      return scientific;
-  };
-};
+      "extinct", "galactic"];
+      return scientific_default;
+  }
+}
 
 // Pulls noun out of array using random number sent from generator
 function getNoun(y) {
@@ -274,16 +270,16 @@ function getNoun(y) {
       "universe", "gravity", "darkMatter", "constellation", "circuit", "asteroid"];
       return scifi;
     default:
-      var scifi = ["robot", "alien", "raygun", "spaceship", "UFO", "rocket", "phaser", "astronaut", "spaceman", "planet", "star", "galaxy",
+      var scifi_default = ["robot", "alien", "raygun", "spaceship", "UFO", "rocket", "phaser", "astronaut", "spaceman", "planet", "star", "galaxy",
       "computer", "future", "timeMachine", "wormHole", "timeTraveler", "scientist", "invention", "martian", "pluto", "jupiter", "saturn", "mars",
       "quasar", "blackHole", "warpDrive", "laser", "orbit", "gears", "molecule", "electron", "neutrino", "proton", "experiment", "photon", "apparatus",
       "universe", "gravity", "darkMatter", "constellation", "circuit", "asteroid"];
-      return scifi;
-  };
-};
+      return scifi_default;
+  }
+}
 
-var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];
-var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];
+var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];  // types of adjectives for pizza titles
+var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];                        // types of nouns for pizza titles
 
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
@@ -293,44 +289,44 @@ function generator(adj, noun) {
   var randomNoun = parseInt(Math.random() * nouns.length);
   var name = "The " + adjectives[randomAdjective].capitalize() + " " + nouns[randomNoun].capitalize();
   return name;
-};
+}
 
 // Chooses random adjective and random noun
 function randomName() {
   var randomNumberAdj = parseInt(Math.random() * adjectives.length);
   var randomNumberNoun = parseInt(Math.random() * nouns.length);
   return generator(adjectives[randomNumberAdj], nouns[randomNumberNoun]);
-};
+}
 
-
+// These functions return a string of a random ingredient from each respective category of ingredients.
 var selectRandomMeat = function() {
   var randomMeat = pizzaIngredients.meats[Math.floor((Math.random() * pizzaIngredients.meats.length))];
   return randomMeat;
-}
+};
 
 var selectRandomNonMeat = function() {
   var randomNonMeat = pizzaIngredients.nonMeats[Math.floor((Math.random() * pizzaIngredients.nonMeats.length))];
   return randomNonMeat;
-}
+};
 
 var selectRandomCheese = function() {
   var randomCheese = pizzaIngredients.cheeses[Math.floor((Math.random() * pizzaIngredients.cheeses.length))];
   return randomCheese;
-}
+};
 
 var selectRandomSauce = function() {
   var randomSauce = pizzaIngredients.sauces[Math.floor((Math.random() * pizzaIngredients.sauces.length))];
   return randomSauce;
-}
+};
 
 var selectRandomCrust = function() {
   var randomCrust = pizzaIngredients.crusts[Math.floor((Math.random() * pizzaIngredients.crusts.length))];
   return randomCrust;
-}
+};
 
 var ingredientItemizer = function(string) {
   return "<li>" + string + "</li>";
-}
+};
 
 // Returns a string with random pizza ingredients nested inside <li> tags
 var makeRandomPizza = function() {
@@ -344,11 +340,11 @@ var makeRandomPizza = function() {
     pizza = pizza + ingredientItemizer(selectRandomMeat());
   }
 
-  for (var i = 0; i < numberOfNonMeats; i++) {
+  for (var j = 0; j < numberOfNonMeats; j++) {
     pizza = pizza + ingredientItemizer(selectRandomNonMeat());
   }
 
-  for (var i = 0; i < numberOfCheeses; i++) {
+  for (var k = 0; k < numberOfCheeses; k++) {
     pizza = pizza + ingredientItemizer(selectRandomCheese());
   }
 
@@ -356,16 +352,16 @@ var makeRandomPizza = function() {
   pizza = pizza + ingredientItemizer(selectRandomCrust());
 
   return pizza;
-}
+};
 
 // returns a DOM element for each pizza
 var pizzaElementGenerator = function(i) {
-  var pizzaContainer,
-      pizzaImageContainer,
-      pizzaImage,
-      pizzaDescriptionContainer,
-      pizzaName,
-      ul;
+  var pizzaContainer,             // contains pizza title, image and list of ingredients
+      pizzaImageContainer,        // contains the pizza image
+      pizzaImage,                 // the pizza image itself
+      pizzaDescriptionContainer,  // contains the pizza title and list of ingredients
+      pizzaName,                  // the pizza name itself
+      ul;                         // the list of ingredients
 
   pizzaContainer  = document.createElement("div");
   pizzaImageContainer = document.createElement("div");
@@ -375,7 +371,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.classList.add("randomPizzaContainer");
   pizzaContainer.style.width = "33.33%";
   pizzaContainer.style.height = "325px";
-  pizzaContainer.id = "pizza" + i;
+  pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
   pizzaImage.src = "images/pizza.png";
@@ -396,7 +392,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.appendChild(pizzaDescriptionContainer);
 
   return pizzaContainer;
-}
+};
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) {
@@ -420,8 +416,8 @@ var resizePizzas = function(size) {
   }
 
   changeSliderLabel(size);
-// Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
 
+  // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
@@ -448,13 +444,16 @@ var resizePizzas = function(size) {
     return dx;
   }
 
+
 // Iterates through pizza elements on the page and changes their widths
+  //variables are taken out of the loop
   function changePizzaSizes(size) {
-    var pizzas = document.querySelectorAll("randomPizzaContainer");
-    var dx = determineDx(pizzas[0], size);
-    var newwidth = (pizzas[0].offsetWidth + dx) + 'px';
-    for (var i = 0; i < 90; i++) {
-      pizzas[i].style.width = newwidth;
+    //moved queryselector out of the loop
+    var pizzaContainers = document.querySelectorAll("randomPizzaContainer");
+    var dx = determineDx(pizzaContainers[0], size);
+    var newWidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
+    for (var i = 0; i < pizzaContainers.length; i++) {
+      pizzaContainers[i].style.width = newWidth;
     }
   }
 
@@ -465,7 +464,7 @@ var resizePizzas = function(size) {
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
   console.log("Time to resize pizzas: " + timeToResize[0].duration + "ms");
-}
+};
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
@@ -499,15 +498,17 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
-// Sliding background pizza scroll limited to 30
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
   var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < 30; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  //Optimize to improve framerate
+  var len = items.length;
+  var phase = Math.sin((document.body.scrollTop/1250)+(len%5));
+  //Take document.querySelector out of for loop and replace with need to be updated with elements
+  for (var i = 0; i < len; i++) {
+   items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -528,7 +529,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 30; i++) {
+  for (var i = 0; i < 50; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
